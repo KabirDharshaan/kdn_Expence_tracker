@@ -4,7 +4,8 @@ import Input from '../../components/layouts/Inputs/Input'
 import { useNavigate, Link } from 'react-router-dom';
 import {validateEmail} from "../../utils/helper.js"
 import { UserContext } from '../../context/userContext.jsx';
-
+import axiosInstance from "../../utils/axiosinstance.js";
+import { API_PATHS } from "../../utils/apiPaths.js";
 
 const Login = () => {
   const [email,setEmail]=useState("");
