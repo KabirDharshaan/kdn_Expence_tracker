@@ -4,10 +4,10 @@
 
 import React, { useState, useContext } from "react";
 import AuthLayout from "../../components/layouts/AuthLayout";
-import Input from "../../components/layouts/Inputs/Input";
+import Input from "../../components/Inputs/Input.jsx";
 import { useNavigate, Link } from "react-router-dom";
 import { validateEmail } from "../../utils/helper.js";
-import ProfilePhotoSelector from "../../components/layouts/Inputs/ProfilePhotoSelector.jsx";
+import ProfilePhotoSelector from "../../components/Inputs/ProfilePhotoSelector.jsx";
 import { UserContext } from "../../context/userContext.jsx"; 
 import { API_PATHS } from "../../utils/apiPaths.js"; 
 import axiosInstance from "../../utils/axiosinstance.js"
@@ -64,7 +64,7 @@ const SignUp = () => {
       if (token) {
         localStorage.setItem("token", token);
         updateUser(user);
-        navigate("/dashboard"); // ✅ lowercase navigate
+        navigate("/dashboard"); 
       }
     } catch (error) {
       if (error.response && error.response.data.message) {
