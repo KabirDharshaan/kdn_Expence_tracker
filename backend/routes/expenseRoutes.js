@@ -1,21 +1,20 @@
-const express=require("express");
-const{
-    addExpense,
-    getAllExpense,
-    deleteExpense,
-    downloadExpenseExcel
-} = require("../controllers/expenseContoller")
 
-const {protect}=require("../middleware/authMiddleware");
+const express = require("express");
+const {
+  addExpense,
+  getAllExpense,
+  deleteExpense,
+  downloadExpenseExcel,
+} = require("../controllers/expenseController"); // ✅ fixed typo
 
+const { protect } = require("../middleware/authMiddleware");
 
-const router=express.Router();
-
-router.post("/add",protect,addExpense);
-router.get("/get",protect,getAllExpense);
-router.get("/downloadexcel",protect,downloadExpenseExcel);
-router.delete('/:id', deleteExpense);
+const router = express.Router();
 
 
+router.post("/add", protect, addExpense);
+router.get("/get", protect, getAllExpense);
+router.get("/downloadexcel", protect, downloadExpenseExcel);
+router.delete("/:id", protect, deleteExpense); // ✅ added protect
 
-module.exports=router;
+module.exports = router;

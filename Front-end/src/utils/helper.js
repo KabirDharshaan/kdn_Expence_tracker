@@ -52,3 +52,17 @@ export const prepareIncomeBarChartData = (data = []) => {
     source: item?.source,
   }));
 };
+
+
+export const prepareExpenseLineChartData = (data =[] )=>{
+  const sortedData = [...data].sort((a,b) => new Date(a.date)-new Date(b.date));
+
+  const chartData= sortedData.map((item) => ({
+    month: moment(item?.date).format('Do MMM'),
+    amount: item?.amount,
+    categroy: item?.category,
+  }));
+
+  return chartData;
+
+}
