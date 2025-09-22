@@ -30,16 +30,23 @@ exports.addIncome=async(req,res)=>{
 }
 
 // Get All Income Source
-exports.getAllIncome=async(req,res)=>{
-    const userId=req.user.id;
 
-    try{
-        const income=(await Income.find({userId})).toSorted({date: -1});
-        res.json(income);
-    }catch (error){
-        res.status(500).json({message: "server Error"});
+
+exports.getAllIncome = async (req, res) => {
+  try {
+    const userId = req.user?.id; // safe check
+    if (!userId) {
+      return res.status(400).json({ message: "User ID missing" });
     }
+
+    const income = await Income.find({ userId }).sort({ date: -1 });
+    res.status(200).json(income);
+  } catch (error) {
+    console.error("getAllIncome error:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
 };
+
 
 // Delete Income Source
 exports.deleteIncome=async(req,res)=>{
@@ -54,25 +61,34 @@ exports.deleteIncome=async(req,res)=>{
 }
 
 // Download Income Source
-exports.downloadIncomeExcel=async(req,res)=>{
-    const userId = req.user.id;
+exports.downloadIncomeExcel = async (req, res) => {
+  const userId = req.user.id;
 
-    try{
-        const income=(await Income.find({userId})).toSorted({date: -1});
+  try {
+    const income = await Income.find({ userId }).sort({ date: -1 }); // FIXED
 
-        //prepare date forExcel
-        const data= income.map((item)=>({
-            Source: item.source,
-            Amount: item.amount,
-            Date: item.date,
-        }));
+    const data = income.map((item) => ({
+      Source: item.source,
+      Amount: item.amount,
+      Date: item.date,
+    }));
 
-        const wb=writeXLSX.utils.book_new();
-        const ws=writeXLSX.utils.json_to_sheet(data);
-        writeXLSX.utils.book_append_sheet(wb,ws,"Income");
-        writeXLSX.writeFile(wb,'income_details.xlsx');
-        res.download('income_details.xlsx');
-    } catch (error){
-        res.status(500).json({message: "Server Error"});
-    }
+    const xlsx = require("xlsx");
+    const wb = xlsx.utils.book_new();
+    const ws = xlsx.utils.json_to_sheet(data);
+    xlsx.utils.book_append_sheet(wb, ws, "Income");
+
+    const filePath = `income_details.xlsx`;
+    xlsx.writeFile(wb, filePath);
+
+    res.download(filePath, (err) => {
+      if (err) {
+        console.error("Error downloading file:", err);
+        res.status(500).json({ message: "Server Error" });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
 };

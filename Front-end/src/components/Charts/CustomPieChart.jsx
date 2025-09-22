@@ -9,6 +9,36 @@ import {
   Legend,
 } from "recharts";
 
+
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white p-2 border rounded shadow">
+        <p className="font-semibold">{payload[0].name}</p>
+        <p>${payload[0].value}</p>
+      </div>
+    );
+  }
+  return null;
+};
+
+
+const CustomLegend = ({ payload }) => {
+  return (
+    <ul className="flex flex-col gap-2">
+      {payload.map((entry, index) => (
+        <li key={`item-${index}`} className="flex items-center gap-2">
+          <span
+            className="inline-block w-3 h-3 rounded-full"
+            style={{ backgroundColor: entry.color }}
+          />
+          <span>{entry.value}</span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
 const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor }) => {
   return (
     <ResponsiveContainer width="100%" height={380}>
@@ -28,8 +58,8 @@ const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor }) =>
           ))}
         </Pie>
 
-        <Tooltip />
-        <Legend />
+        <Tooltip content={<CustomTooltip />} />
+        <Legend  content={<CustomLegend />}/>
 
         {showTextAnchor && (
           <>
