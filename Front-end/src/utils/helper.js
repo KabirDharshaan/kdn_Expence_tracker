@@ -1,13 +1,16 @@
+import moment from "moment";
+
 
 export const validateEmail = (email) => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
 };
 
+
 export const getInitials = (name) => {
   if (!name) return "";
 
-  const words = name.trim().split(" "); // split by spaces
+  const words = name.trim().split(" ");
   let initials = "";
 
   for (let i = 0; i < Math.min(words.length, 2); i++) {
@@ -16,6 +19,7 @@ export const getInitials = (name) => {
 
   return initials.toUpperCase();
 };
+
 
 export const addThousandsSeparator = (num) => {
   if (num == null || isNaN(num)) return "";
@@ -28,23 +32,23 @@ export const addThousandsSeparator = (num) => {
     : formattedInteger;
 };
 
+
 export const prepareExpenseBarCharData = (data = []) => {
-  const charData = data.map((item) => ({
+  return data.map((item) => ({
     category: item?.category,
     amount: item?.amount,
   }));
-  return charData;
 };
 
 
-export const prepareIncomeBarChartData = (data = []) =>{
-   const sortedData= [...data].sort((a,b) =>new Date(a.date) - new Date(b.date));
+export const prepareIncomeBarChartData = (data = []) => {
+  const sortedData = [...data].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
 
-   const chartData= sortedData.map((item)=>({
-     month: moment(item?.date).format('Do MMM'),
-     amount: item?.amount,
-     source: item?.source,
-   }));
-
-   return chartData;
-}
+  return sortedData.map((item) => ({
+    month: moment(item?.date).format("DD MMM"),
+    amount: item?.amount,
+    source: item?.source,
+  }));
+};
