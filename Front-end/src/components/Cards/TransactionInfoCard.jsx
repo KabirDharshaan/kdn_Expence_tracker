@@ -41,3 +41,9 @@ const TransactionInfoCard = ({title,icon,date,amount,type,hideDeleteBtn,onDelete
 }
 
 export default TransactionInfoCard
+
+
+
+
+
+

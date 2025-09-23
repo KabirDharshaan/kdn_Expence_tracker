@@ -24,7 +24,7 @@ const Expense = () => {
   });
   const [openAddExpenseModal, setOpenAddExpenseModal] = useState(false);
 
-  // Fetch all Expense details
+ 
   const fetchExpenseDetails = async () => {
     if (loading) return;
 
@@ -42,7 +42,7 @@ const Expense = () => {
     }
   };
 
-  // Handle adding new Expense
+  
   const handleAddExpense = async (expense) => {
     const { category, amount, date, icon } = expense;
 
@@ -81,7 +81,7 @@ const Expense = () => {
     }
   };
 
-  // Delete Expense
+ 
   const deleteExpense = async (id) => {
     try {
       await axiosInstance.delete(API_PATHS.EXPENSE.DELETE_EXPENSE(id));
@@ -97,7 +97,7 @@ const Expense = () => {
     }
   };
 
-  // Download Expense Excel
+
   const handleDownloadExpenseDetails = async () => {
     try {
       const response = await axiosInstance.get(API_PATHS.EXPENSE.DOWNLOAD_EXPENSE, {

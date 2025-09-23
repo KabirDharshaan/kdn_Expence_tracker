@@ -46,7 +46,7 @@ const SignUp = () => {
     setError("");
 
     try {
-      // Upload image if present
+ 
       if (profilePic) {
         const imgUploadRes = await uploadImage(profilePic);
         profileImageUrl = imgUploadRes.imageUrl || "";

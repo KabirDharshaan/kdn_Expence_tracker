@@ -9,7 +9,6 @@ const expenseRoutes=require("./routes/expenseRoutes")
 const dashboardRoutes=require("./routes/dashboardRoutes")
 const app=express();
 
-//Middleware to handle CORS
 
 app.use(
     cors({
@@ -30,7 +29,7 @@ app.use("/api/v1/expense", expenseRoutes);
 app.use("/api/v1/dashboard", dashboardRoutes);
 
 
-// Server uploads folder
+
 app.use("/uploads",express.static(path.join(__dirname,"uploads")));
 
 const PORT= process.env.PORT || 5000;

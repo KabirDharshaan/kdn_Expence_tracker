@@ -16,7 +16,7 @@ const Login = () => {
   const navigate=useNavigate();
 
 
-  //Handle Login Form Submit
+
   const handleLogin =async (e) =>{
     e.preventDefault();
 
@@ -31,7 +31,7 @@ const Login = () => {
     }
     setError("");
 
-    //Login API Call
+
     try{
       const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN,{
         email,

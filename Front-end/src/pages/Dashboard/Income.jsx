@@ -21,7 +21,7 @@ const Income = () => {
   });
   const [openAddIncomeModal, setOpenAddIncomeModal] = useState(false);
 
-  // ✅ Fetch all income details
+
   const fetchIncomeDetails = async () => {
     if (loading) return;
 
@@ -38,7 +38,7 @@ const Income = () => {
     }
   };
 
-  // ✅ Handle adding new income
+
   const handleAddIncome = async (income) => {
     const { source, amount, date, icon } = income;
 
@@ -77,7 +77,7 @@ const Income = () => {
     }
   };
 
-  // ✅ Delete income logic (fixed to call function)
+ 
   const deleteIncome = async (id) => {
     try {
       await axiosInstance.delete(API_PATHS.INCOME.DELETE_INCOME(id));
@@ -94,7 +94,7 @@ const Income = () => {
     }
   };
 
-  // ✅ Download income data
+
   const handleDownloadIncomeDetails = async () => {
     try {
       const response = await axiosInstance.get(
@@ -124,13 +124,13 @@ const Income = () => {
     <DashboardLayout activeMenu="Income">
       <div className="my-5 mx-auto">
         <div className="grid grid-cols-1 gap-6">
-          {/* ✅ Overview Chart */}
+  
           <IncomeOverview
             transactions={incomeData}
             onAddIncome={() => setOpenAddIncomeModal(true)}
           />
 
-          {/* ✅ Income List */}
+
           <IncomeList
             transactions={incomeData}
             onDelete={(id) => {
@@ -140,7 +140,6 @@ const Income = () => {
           />
         </div>
 
-        {/* ✅ Add Income Modal */}
         <Modal 
           isOpen={openAddIncomeModal}
           onClose={() => setOpenAddIncomeModal(false)}
@@ -149,7 +148,7 @@ const Income = () => {
           <AddincomeForm onAddIncome={handleAddIncome} />
         </Modal>
 
-        {/* ✅ Delete Alert Modal */}
+
         <Modal 
           isOpen={openDeleteAlert.show}
           onClose={() => setOpenDeleteAlert({ show: false, data: null })}

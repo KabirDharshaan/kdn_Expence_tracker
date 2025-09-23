@@ -2,14 +2,14 @@
 const xlsx = require("xlsx");
 const Expense = require("../models/Expense");
 
-// ✅ Add Expense
+
 exports.addExpense = async (req, res) => {
-  const userId = req.user.id; // FIXED: was req.res.id
+  const userId = req.user.id; 
 
   try {
     const { icon, category, amount, date } = req.body;
 
-    // Validation
+
     if (!category || !amount || !date) {
       return res.status(400).json({ message: "All fields are required" });
     }
@@ -30,7 +30,7 @@ exports.addExpense = async (req, res) => {
   }
 };
 
-// ✅ Get All Expenses
+
 exports.getAllExpense = async (req, res) => {
   const userId = req.user.id;
 
@@ -43,7 +43,7 @@ exports.getAllExpense = async (req, res) => {
   }
 };
 
-// ✅ Delete Expense
+
 exports.deleteExpense = async (req, res) => {
   try {
     await Expense.findByIdAndDelete(req.params.id);
@@ -54,14 +54,14 @@ exports.deleteExpense = async (req, res) => {
   }
 };
 
-// ✅ Download Excel
+
 exports.downloadExpenseExcel = async (req, res) => {
-  const userId = req.user.id; // FIXED: was req.res.id
+  const userId = req.user.id; 
 
   try {
     const expenses = await Expense.find({ userId }).sort({ date: -1 });
 
-    // Prepare data for Excel
+   
     const data = expenses.map((item) => ({
       Category: item.category,
       Amount: item.amount,

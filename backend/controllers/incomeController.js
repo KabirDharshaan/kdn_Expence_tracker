@@ -2,14 +2,14 @@ const xlsx=require('xlsx')
 const Income=require("../models/Income");
 const { writeXLSX } = require("xlsx");
 
-// Add Income Source
+
 exports.addIncome=async(req,res)=>{
     const userId=req.user.id;
 
     try{
         const {icon,source,amount,date}=req.body;
 
-        //Validation: check for missing fields
+       
         if(!source || !amount || !date){
             return res.status(400).json({message: "All fields are required"});
         }
@@ -29,12 +29,12 @@ exports.addIncome=async(req,res)=>{
     }
 }
 
-// Get All Income Source
+
 
 
 exports.getAllIncome = async (req, res) => {
   try {
-    const userId = req.user?.id; // safe check
+    const userId = req.user?.id; 
     if (!userId) {
       return res.status(400).json({ message: "User ID missing" });
     }
@@ -48,7 +48,6 @@ exports.getAllIncome = async (req, res) => {
 };
 
 
-// Delete Income Source
 exports.deleteIncome=async(req,res)=>{
   
 
@@ -60,7 +59,7 @@ exports.deleteIncome=async(req,res)=>{
     }
 }
 
-// Download Income Source
+
 exports.downloadIncomeExcel = async (req, res) => {
   const userId = req.user.id;
 

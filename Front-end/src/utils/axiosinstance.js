@@ -12,7 +12,6 @@ const axiosInstance = axios.create({
   },
 });
 
-// ✅ Request Interceptor (adds token before every request)
 axiosInstance.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem("token");
@@ -24,13 +23,12 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// ✅ Response Interceptor (handles responses & errors)
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response) {
       if (error.response.status === 401) {
-        window.location.href = "/login"; // Redirect on unauthorized
+        window.location.href = "/login"; 
       } else if (error.response.status === 500) {
         console.error("Server error. Please try again later.");
       }

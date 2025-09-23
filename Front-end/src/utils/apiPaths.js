@@ -29,6 +29,7 @@ export const API_PATHS={
     },
     IMAGE: {
         UPLOAD_IMAGE: "/api/v1/auth/upload-image",
+        GET_IMAGE_URL: (filename) => `${BASE_URL}/uploads/${filename}`, 
     },
 };
 
